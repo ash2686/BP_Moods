@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/807d2e2951.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="sun.png">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Bipolar Moods</title>
+</head>
+<body>
+<div class="main-container">
+
+    <!-- <div id="import-export">
+        <div id="arrow"><i class="fa-solid fa-angles-left"></i></div>
+        <div class="content">
+        <button id="export-data">Export Data</button>
+        <input type="file" id="import-file" accept=".json">
+        </div>
+    </div> -->
+
+    <!-- <div class="month-block">
+
+    </div> -->
+    
+    <div class="site-heading">
+        <div class="date-time">
+            <div class="dt-container">
+                <div id="date"></div>
+                <div id="time">03:45:10 AM</div>
+                <div id="calender">
+                    <div class="calender-head">
+                        <i id="previous-month-button" class="fa-solid fa-circle-chevron-left"></i>
+                        <div id="calender-month">May</div>
+                        <i id="next-month-button" class="fa-solid fa-circle-chevron-right"></i>
+
+                    </div>
+                    <div class="calender-body">
+
+                    </div>
+                </div>
+            </div>           
+        </div>
+
+        <div class="heading-text">
+        <h2>BiPolar Moods Logs</h2>
+        <p>Enter and save your daily moods and medications and visualise your results graphically and see how you are doing.</p>
+        <p class="num-of-entries-block">Number of entries - <span id="number-entries"></span></p>
+        </div>
+
+        <div class="visualise">
+            <button id="visuals"><p>Visualise</p> <img width="100" height="100" src="https://img.icons8.com/bubbles/100/combo-chart.png" alt="combo-chart"/></button>
+            <div id="charts">
+                <i id="close-chart"  class="fa-solid fa-xmark"></i>
+                <div class="chart-block sleep"><canvas id="sleep-chart"></canvas></div>
+                <div class="chart-block medication"><canvas id="medication-chart"></canvas></div>
+                
+                
+                <div class="chart-block"><canvas id="depression-chart"></canvas></div>
+                <div class="chart-block"><canvas id="elevated-chart"></canvas></div>
+                <div class="chart-block"><canvas id="irritability-chart"></canvas></div>
+                <div class="chart-block"><canvas id="anxiety-chart"></canvas></div>
+                <div class="chart-block"><canvas id="psychotic-chart"></canvas></div>
+            </div>
+        </div>
+
+           
+    </div>
+    <!-- End of Site Heading -->
+
+    <div class="site-main-block">
+
+        
+            <form action="#" id="mood-questions">
+
+
+                <div class="questions-block">
+
+                <div class="form-block">
+
+                    <label for="bp-sleep" class="sleep-hours">Hours slept last night - Choose</label>
+                    <div class="slider-wrapper">
+                    <input id="bp-sleep" type="range" step=".5" min="0" max="14" list="markers" value="0" name="bp-sleep">
+                       <div class="range-labels">
+                            <span>0</span>
+                            <span>1</span>
+                            <span>2</span>
+                            <span>3</span>
+                            <span>4</span>
+                            <span>5</span>
+                            <span>6</span>
+                            <span>7</span>
+                            <span>8</span>
+                            <span>9</span>
+                            <span>10</span>
+                            <span>11</span>
+                            <span>12</span>
+                            <span>13</span>
+                            <span>14</span>
+                            <!-- <span>15</span>
+                            <span>16</span> -->
+                           
+                        </div>                 
+                    </div>
+                </div>    
+
+
+                <div class="form-block">
+                    <p class="d-mood">Today's despressed mood - Choose</p>
+                        
+                    <div class="depressed-moods">
+                        <div class="depressed-option">
+                        <input type="radio" id="dNone" name="dMood" value="none">
+                        <label for="dNone">None</label>
+                        </div>
+
+                        <div class="depressed-option">
+                        <input type="radio" id="dMild" name="dMood" value="mild">
+                        <label for="dMild">Mild</label>
+                        </div>
+
+                        <div class="depressed-option">
+                        <input type="radio" id="dModerate" name="dMood" value="moderate">
+                        <label for="dModerate">Moderate</label>
+                        </div>
+
+                        <div class="depressed-option">
+                        <input type="radio" id="dSevere" name="dMood" value="severe">
+                        <label for="dSevere">Severe</label>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="form-block">
+                    <p class="d-mood">Today's elavated mood - Choose</p>
+                        
+                    <div class="elevated-moods">
+                        <div class="elevated-option">
+                        <input type="radio" id="eNone" name="eMood" value="none">
+                        <label for="eNone">None</label>
+                        </div>
+
+                        <div class="elevated-option">
+                        <input type="radio" id="eMild" name="eMood" value="mild">
+                        <label for="eMild">Mild</label>
+                        </div>
+
+                        <div class="elevated-option">
+                        <input type="radio" id="eModerate" name="eMood" value="moderate">
+                        <label for="eModerate">Moderate</label>
+                        </div>
+
+                        <div class="elevated-option">
+                        <input type="radio" id="eSevere" name="eMood" value="severe">
+                        <label for="eSevere">Severe</label>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="form-block">
+                        <p class="d-mood">Today's irritability level - Choose</p>
+                            
+                        <div class="irritate-moods">
+                            <div class="irritate-option">
+                            <input type="radio" id="iNone" name="iMood" value="none">
+                            <label for="iNone">None</label>
+                            </div>
+
+                            <div class="irritate-option">
+                            <input type="radio" id="iMild" name="iMood" value="mild">
+                            <label for="iMild">Mild</label>
+                            </div>
+
+                            <div class="irritate-option">
+                            <input type="radio" id="iModerate" name="iMood" value="moderate">
+                            <label for="iModerate">Moderate</label>
+                            </div>
+
+                            <div class="irritate-option">
+                            <input type="radio" id="iSevere" name="iMood" value="severe">
+                            <label for="iSevere">Severe</label>
+                            </div>
+                        </div>
+
+                </div>
+
+
+                <div class="form-block">
+                        <p class="d-mood">Today's anxiety level - Choose</p>
+                            
+                        <div class="anxiety-moods">
+                            <div class="anxiety-option">
+                            <input type="radio" id="aNone" name="aMood" value="none">
+                            <label for="aNone">None</label>
+                            </div>
+
+                            <div class="anxiety-option">
+                            <input type="radio" id="aMild" name="aMood" value="mild">
+                            <label for="aMild">Mild</label>
+                            </div>
+
+                            <div class="anxiety-option">
+                            <input type="radio" id="aModerate" name="aMood" value="moderate">
+                            <label for="aModerate">Moderate</label>
+                            </div>
+
+                            <div class="anxiety-option">
+                            <input type="radio" id="aSevere" name="aMood" value="severe">
+                            <label for="aSevere">Severe</label>
+                            </div>
+                        </div>
+
+                </div>
+
+
+                <div class="form-block">
+                        <p class="p-mood">Today's psychotic level - Choose</p>
+                            
+                        <div class="psychotic-moods">
+                            <div class="psychotic-option">
+                            <input type="radio" id="pNone" name="pMood" value="none">
+                            <label for="pNone">None</label>
+                            </div>
+
+                            <div class="psychotic-option">
+                            <input type="radio" id="pMild" name="pMood" value="mild">
+                            <label for="pMild">Mild</label>
+                            </div>
+
+                            <div class="psychotic-option">
+                            <input type="radio" id="pModerate" name="pMood" value="moderate">
+                            <label for="pModerate">Moderate</label>
+                            </div>
+
+                            <div class="psychotic-option">
+                            <input type="radio" id="pSevere" name="pMood" value="severe">
+                            <label for="pSevere">Severe</label>
+                            </div>
+                        </div>
+
+                </div>
+                </div>
+    
+                <div class="medication-block">
+        <fieldset id = "new-med-area">
+                <legend><button type="button" id="add-meds">Add Medication</button></legend>
+
+                <!-- <div class="med-item">
+                    <p class="med-label">Lithium (1000mg)</p>
+                     
+                       <div class="med-item-block">
+                       <div>
+                            <input type="radio" id="yLithium" name="med" value="Yes">
+                            <label for="yLithium">Yes</label>
+                       </div>
+
+                       <div>
+                            <input type="radio" id="nLithium" name="med" value="No">
+                            <label for="nLithium">No</label>
+                       </div>
+                       </div>
+                </div> -->
+
+                                         
+
+        </fieldset>
+                 </div>
+
+                <div class="submit-block">
+
+                    <button type="submit" id="submit-info">Submit Information</button>
+                    <button type = "button" id="missed-day-button">Missed Day</button>
+
+                </div>
+
+            </form>
+</div>  <!-- End of site-main-block -->
+
+<!-- ******************************************* Add Medication ************************************************* -->
+
+<div class="add-medication">
+
+     
+     <!-- <i class="fa-solid fa-circle-minus"></i> -->
+     <i id="close-add"  class="fa-solid fa-xmark"></i>
+    <div class="medication-title">
+        Enter your medication details
+    </div>
+
+    <form action="#" id="medication-details">
+
+        <fieldset>
+
+        <legend>Medication</legend>
+
+        <div class="meds-details">
+
+                <div class="medication-detail-block">
+                    <label for="mName">Medication Name</label>
+                    <input type="text" id="mName" name="Name" placeholder="Medication Name">
+                </div>
+
+                <div class="medication-detail-block">
+                    <label for="mDose">Medication Dose</label>
+                    <input type="text" id="mDose" name="Dose" placeholder="Medication Dose">
+                </div>
+
+                <div class="medication-detail-block">
+                    <label for="mUnit">Medication Unit</label>
+                    <input type="text" id="mUnit" name="Unit" placeholder="Medication Unit">
+                </div>
+
+        </div>
+
+        <hr>
+        <div class="meds-frequency">
+
+            <div class="frequency-block">
+                    <p>Time of the day</p>
+
+                    <div class="frequency-options">
+                    <div>
+                    <input type="radio" id="multiple" name="frequency" value="Multiple">
+                    <label for="multiple">Multiple</label>
+                    </div>
+
+                    <div>
+                    <input type="radio" id="am" name="frequency" value="AM">
+                    <label for="am">AM</label>
+                    </div>
+
+                    <div>
+                    <input type="radio" id="pm" name="frequency" value="PM">
+                    <label for="pm">PM</label>
+                    </div>
+                    </div>
+            </div>
+
+            <hr>
+
+              <div class="frequency-block">
+                    <p>Frequency</p>
+
+                    <div class="frequency-options">
+                    <div>
+                    <input type="radio" id="everyday" name="time" value="Everyday">
+                    <label for="everyday">Everday</label>
+                    </div>
+                    <div>
+                    <input type="radio" id="prn" name="time" value="PRN">
+                    <label for="prn">PRN</label>
+                    </div>
+                    </div>   
+
+            </div>
+
+
+
+        </div>
+            
+        </fieldset>
+
+        <div class="save-button-block">
+
+            <button type="submit" id="save-med">Save Medication</button>
+
+        </div>
+    </form>
+
+</div><!-- **************** End of add medication ***********************  -->
+
+
+<!-- ************************************************** MISSED DAY BLOCK ********************************************** -->
+<div id="missed-day-block">
+            <i id="close-missed"  class="fa-solid fa-xmark"></i>
+            <div class="missed-date">
+                <label for="missed-date">Choose the missed day</label>
+                <input type="date" id="missed-date">
+            </div>
+           
+           
+            <form action="#" id="missed-day">
+
+
+                <div class="missed-questions-block">
+
+                <div class="missed-form-block">
+                    <label for="missed-bp-sleep" class="sleep-hours">Enter hours slept</label>                    
+                    <input id="missed-bp-sleep" type="number" min="0" max="14" value="0" step=".5" name="missed-bp-sleep">                    
+                </div>    
+
+
+                <div class="missed-form-block">
+                    <label for="md-Mood">Depressed mood</label>
+
+                    <select id="md-Mood" name="dep-mood">
+                    <option value="" hidden>Choose</option>
+                    <option value="none">None</option>
+                    <option value="mild">Mild</option>
+                    <option value="moderate">Moderate</option>
+                    <option value="severe">Severe</option>
+                    </select>
+
+                </div>
+
+
+                <div class="missed-form-block">
+
+                    <label for="me-Mood">Elevated mood</label>
+
+                    <select id="me-Mood" name="ele-mood">
+                    <option value="" hidden>Choose</option>
+                    <option value="none">None</option>
+                    <option value="mild">Mild</option>
+                    <option value="moderate">Moderate</option>
+                    <option value="severe">Severe</option>
+                    </select>
+                    
+
+                </div>
+
+                <div class="missed-form-block">
+
+                    <label for="mi-Mood">Irritability mood</label>
+
+                    <select id="mi-Mood" name="irr-mood">
+                    <option value="" hidden>Choose</option>
+                    <option value="none">None</option>
+                    <option value="mild">Mild</option>
+                    <option value="moderate">Moderate</option>
+                    <option value="severe">Severe</option>
+                    </select>                    
+
+                </div>
+
+                 <div class="missed-form-block">
+
+                    <label for="ma-Mood">Anxiety mood</label>
+
+                    <select id="ma-Mood" name="anx-mood">
+                    <option value="" hidden>Choose</option>
+                    <option value="none">None</option>
+                    <option value="mild">Mild</option>
+                    <option value="moderate">Moderate</option>
+                    <option value="severe">Severe</option>
+                    </select>                    
+
+                </div>
+
+                <div class="missed-form-block">
+
+                    <label for="mp-Mood">Psychotic mood</label>
+
+                    <select id="mp-Mood" name="psy-mood">
+                    <option value="" hidden>Choose</option>
+                    <option value="none">None</option>
+                    <option value="mild">Mild</option>
+                    <option value="moderate">Moderate</option>
+                    <option value="severe">Severe</option>
+                    </select>                    
+
+                </div>
+                </div>
+
+                <hr>
+
+                <div class="missed-medication-block">
+                    <!-- <div class="missed-med">
+                                <label for="mMed1">Lithium</label>
+                                <select name="mMed" id="mMed1">
+                                <option value="" hidden>Choose</option>
+                                <option value="yes">Yes</option>
+                                <option value="yes">No</option>
+                                </select>
+                    </div>
+                     -->
+                    
+                </div>
+
+
+                <div class="missed-submit-block">
+
+                    <button type="submit" id="missed-day-info">Submit Information</button>
+
+                </div>
+
+            </form>
+
+</div><!-- ****************** End of Missed Day ************************* -->
+
+
+</div><!-- **************** End of main container ***********************  -->
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="script.js"></script>
+</body>
+</html>
