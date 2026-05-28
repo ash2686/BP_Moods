@@ -910,7 +910,7 @@ hr{
 @media only screen and (max-width: 768px){
 
     .main-container .site-heading .date-time{
-        /* background-color: yellow; */
+        background-color: yellow;
     }
     .main-container .site-heading .date-time .dt-container *{
             font-size: .5rem;
