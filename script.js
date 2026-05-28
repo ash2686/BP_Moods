@@ -5,6 +5,7 @@ const supabaseKey =
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
 let numEntries = 0;
+const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
 let sleepHours = document.getElementsByClassName("sleep-hours")[0];
 let dLabel = document.getElementsByClassName("d-mood")[0];
@@ -1363,7 +1364,8 @@ async function moodCharts() {
           },
 
           legend: {
-            position: "left",
+            // position: "left",
+            position: isMobile ? "top" : "left",
 
             labels: {
               boxWidth: 10,

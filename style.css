@@ -1100,4 +1100,45 @@ hr{
     /* color: red; */
 }
 
+#charts{
+    position: fixed;
+    inset: 0;
+    /* overflow: hidden; */
+    overflow-y: auto;
+    width: 100vw;
+    min-height: 100vh;
+    top: 0;
+    left: 0;
+    /* background-color: red; */
+    background-color: white;
+    z-index: 100;
+    display: flex !important;
+    flex-direction: column;
+    /* grid-template-rows: repeat(7,1fr) !important; */
+    /* grid-template-columns: repeat(1,1fr) !important; */
+    /* grid-auto-flow: row; */
+    box-sizing: border-box;
+    
+} 
+
+#charts .chart-block{
+    border: 1px solid black;
+    /* padding: .5rem; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50%;
+    flex-shrink: 0;
+    /* background-color: green; */
+}
+
+#charts .chart-block canvas{
+    width: 100%;
+    height: 100%;
+    /* display: none !important; */
+}
+
+
+
  }
