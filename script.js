@@ -116,7 +116,7 @@ async function renderCalendar() {
          data.forEach(item=>{
             if(i===Number(item["entry_date"].slice(-2)) && Number(item["entry_date"].split("-")[1]) === month +1){
 
-              newDiv.style.backgroundColor = "green";
+              newDiv.style.backgroundColor = "rgba(0, 128, 0,.5)";
               newDiv.style.color = "white";
 
             }
@@ -159,172 +159,6 @@ async function getNumEntries() {
 }
 
 
-// console.log(dayData);
-
-// console.log(currentDate());
-
-// document.getElementById("export-data").addEventListener("click", exportData);
-
-// function exportData() {
-//   let response = confirm("Do you want to export data, today");
-
-//   if (response) {
-//     let dayData = JSON.parse(localStorage.getItem("dayData")) || {};
-
-//     let dataStr = JSON.stringify(dayData, null, 2);
-
-//     let blob = new Blob([dataStr], { type: "application/json" });
-
-//     let url = URL.createObjectURL(blob);
-
-//     let a = document.createElement("a");
-
-//     // let date = new Date().toISOString().split("T")[0];
-//     let date = new Date().toLocaleDateString();
-//     // date.toLocaleDateString();
-
-//     a.href = url;
-//     a.download = `moods-backup-${currentDate()}.json`;
-
-//     a.click();
-
-//     URL.revokeObjectURL(url);
-//   } else {
-//     return;
-//   }
-// }
-
-// function importData(event) {
-//   let file = event.target.files[0];
-
-//   if (!file) return;
-
-//   let reader = new FileReader();
-
-//   reader.onload = function (e) {
-//     try {
-//       let importedData = JSON.parse(e.target.result);
-
-//       localStorage.setItem("dayData", JSON.stringify(importedData));
-
-//       alert("Data imported successfully");
-
-//       location.reload();
-//     } catch (error) {
-//       alert("Invalid backup file");
-//     }
-//   };
-
-//   reader.readAsText(file);
-// }
-
-// document.getElementById("import-file").addEventListener("change", importData);
-
-// console.log(medDetails[0].time);
-
-// console.log("Program starts here ==>");
-
-
-let dummyData = {
-  "11/05/2026": {
-    Aripiprizol: "yes",
-    Lithium: "yes",
-    Quetiapine: "no",
-    Zopiclone: "no",
-    aMood: "Mild",
-    "bp-sleep": "8.5",
-    dMood: "Moderate",
-    iMood: "Moderate",
-    pMood: "None",
-    eMood: "None",
-  },
-
-  "12/05/2026": {
-    Aripiprizol: "yes",
-    Lithium: "yes",
-    Quetiapine: "no",
-    Zopiclone: "no",
-    aMood: "Mild",
-    "bp-sleep": "8.5",
-    dMood: "Moderate",
-    iMood: "Moderate",
-    pMood: "None",
-    eMood: "None",
-  },
-
-  "13/05/2026": {
-    Aripiprizol: "yes",
-    Lithium: "yes",
-    Quetiapine: "no",
-    Zopiclone: "no",
-    aMood: "Mild",
-    "bp-sleep": "8.5",
-    dMood: "Moderate",
-    iMood: "Moderate",
-    pMood: "None",
-    eMood: "None",
-  },
-
-  "14/05/2026": {
-    Aripiprizol: "yes",
-    Lithium: "yes",
-    Quetiapine: "no",
-    Zopiclone: "no",
-    aMood: "Mild",
-    "bp-sleep": "8.5",
-    dMood: "Moderate",
-    iMood: "Moderate",
-    pMood: "None",
-    eMood: "None",
-  },
-
-  "15/05/2026": {
-    Aripiprizol: "yes",
-    Lithium: "yes",
-    Quetiapine: "no",
-    Zopiclone: "no",
-    aMood: "Mild",
-    "bp-sleep": "8.5",
-    dMood: "Moderate",
-    iMood: "Moderate",
-    pMood: "None",
-    eMood: "None",
-  },
-
-  "16/05/2026": {
-    Aripiprizol: "yes",
-    Lithium: "yes",
-    Quetiapine: "no",
-    Zopiclone: "no",
-    aMood: "Mild",
-    "bp-sleep": "8.5",
-    dMood: "Moderate",
-    iMood: "Moderate",
-    pMood: "None",
-    eMood: "None",
-  },
-
-  "17/05/2026": {
-    Aripiprizol: "yes",
-    Lithium: "yes",
-    Quetiapine: "no",
-    Zopiclone: "no",
-    aMood: "Mild",
-    "bp-sleep": "8.5",
-    dMood: "Moderate",
-    iMood: "Moderate",
-    pMood: "None",
-    eMood: "None",
-  },
-};
-
-// console.log(dummyData);
-
-// console.log(currentDate());
-
-// console.log(dayData["18/05/2026"]["eMood"]);
-
-// console.log(dayData[currentDate()]["eMood"]);
 
 let visuals = document.getElementById("visuals");
 
@@ -785,7 +619,7 @@ moodQuestions.addEventListener("submit", async (e) => {
     async function checkDayExists(date) {
     const { data, error } = await supabaseClient
       .from("daily_entries")
-      .select("*")
+      .select("id")
       .eq("entry_date", date)
       .maybeSingle();
 
@@ -795,7 +629,8 @@ moodQuestions.addEventListener("submit", async (e) => {
     }
     
     // console.log("Data found!!", data);
-    return true;
+    // return true;
+    return data !== null;
   }
 
   const entryExists = await checkDayExists(entry_date);
@@ -1027,7 +862,7 @@ async function createSleepChart() {
           categoryPercentage: 1,
           barPercentage: 0.9,
 
-          backgroundColor: "red",
+          backgroundColor: "rgba(255, 0, 0,1)",
 
           borderColor: "black",
           borderWidth: 1,
@@ -1043,7 +878,7 @@ async function createSleepChart() {
           categoryPercentage: 1,
           barPercentage: 0.9,
 
-          backgroundColor: "green",
+          backgroundColor: "rgba(0, 128, 0,1)",
 
           borderColor: "black",
           borderWidth: 1,
@@ -1059,7 +894,7 @@ async function createSleepChart() {
           categoryPercentage: 1,
           barPercentage: 0.9,
 
-          backgroundColor: "blue",
+          backgroundColor: "rgba(0, 0, 255,1)",
 
           borderColor: "black",
           borderWidth: 1,
@@ -1170,7 +1005,7 @@ function buildMedicationScatter(data) {
         taken: value,
 
         backgroundColor:
-          value === "yes" ? "green" : value === "no" ? "red" : "gray",
+          value === "yes" ? "rgba(0, 128, 0,1)" : value === "no" ? "rgba(255, 0, 0,1)" : "gray",
       });
     });
   });
@@ -1331,13 +1166,13 @@ if (!data) {
               return [
                 {
                   text: "Taken",
-                  fillStyle: "green",
+                  fillStyle: "rgba(0, 128, 0,1)",
                   strokeStyle: "black",
                   lineWidth: 1,
                 },
                 {
                   text: "Not Taken",
-                  fillStyle: "red",
+                  fillStyle: "rgba(255, 0, 0,1)",
                   strokeStyle: "black",
                   lineWidth: 1,
                 },
@@ -1493,14 +1328,14 @@ async function moodCharts() {
 
             backgroundColor: values.map((value) => {
               if (value === 1) {
-                return "green";
+                return "rgba(0, 128, 0,1)";
               } else if (value === 2) {
-                return "yellow";
+                return "rgba(255, 255, 0,1)";
               } else if (value === 3) {
-                return "orange";
+                return "rgba(255, 165, 0,1)";
               }
 
-              return "red";
+              return "rgba(255, 0, 0,1)";
             }),
 
             categoryPercentage: 1,
@@ -1543,28 +1378,28 @@ async function moodCharts() {
                 return [
                   {
                     text: "None",
-                    fillStyle: "green",
+                    fillStyle: "rgba(0, 128, 0,.5)",
                     strokeStyle: "black",
                     lineWidth: 1,
                   },
 
                   {
                     text: "Mild",
-                    fillStyle: "yellow",
+                    fillStyle: "rgba(255, 255, 0,.5)",
                     strokeStyle: "black",
                     lineWidth: 1,
                   },
 
                   {
                     text: "Moderate",
-                    fillStyle: "orange",
+                    fillStyle: "rgba(255, 165, 0,.5)",
                     strokeStyle: "black",
                     lineWidth: 1,
                   },
 
                   {
                     text: "Severe",
-                    fillStyle: "red",
+                    fillStyle: "rgba(255, 0, 0,.5)",
                     strokeStyle: "black",
                     lineWidth: 1,
                   },

@@ -731,13 +731,7 @@ hr{
 } */
 
 
-.dddiv{
-    color: rgba(255, 0, 0,.5);
-    color: rgba(0, 128, 0,.5);
-    color: rgba(255, 255, 0,.5);
-    color: rgba(255, 165, 0,.5);
-    color: rgba(0, 0, 255,.5);
-}
+
 
 /* *********************************** MISSED DAY BLOCK ****************************************** */
 
@@ -903,3 +897,151 @@ hr{
     right: 5%;
     z-index: 100;
 }
+
+
+.dddiv{
+    color: rgba(255, 0, 0,.5);   /* RED */
+    color: rgba(0, 128, 0,.5);    /* GREEN */
+    color: rgba(255, 255, 0,.5);   /* YELLOW */
+    color: rgba(255, 165, 0,.5);   /* ORAGNE */
+    color: rgba(0, 0, 255,.5);    /* BLUE */
+}
+
+@media only screen and (max-width: 768px){
+
+    .main-container .site-heading .date-time{
+        /* background-color: yellow; */
+    }
+    .main-container .site-heading .date-time .dt-container *{
+            font-size: .5rem;
+            /* color: red; */
+    }
+
+    #calender{
+        height: 10rem;
+    }
+
+   #calender .calender-head{
+    width: 100%;
+    height: 20%;
+    border-bottom: 1px solid black;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;    
+    margin: 0;
+    padding:0;
+}
+
+#calender .calender-head i{
+    cursor: pointer;
+}
+
+#calender .calender-body{
+    width: 100%;
+    height: 80%;
+     display: grid;
+    grid-template-columns: repeat(7,1fr);
+    grid-template-rows: repeat(5,1fr);
+    padding: .2rem;
+    gap: .1rem;
+}
+
+#calender .calender-body .calender-cell{
+    border: 1px solid black;
+    border-radius: 2px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    font-size: .3rem;
+    /* font-weight: bolder; */
+    position: relative;
+    text-decoration: underline;
+}
+
+
+.main-container .site-heading .heading-text{
+   width: 50%;
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-evenly;
+   align-items: center;
+   font-weight: bolder;
+   /* font-size: .2rem; */
+   /* background-color: red; */
+}
+
+.heading-text *{
+    font-size: .6rem;
+    text-align: center;
+}
+
+
+.num-of-entries-block{
+    /* border: 1px solid black; */
+    /* padding: .2rem 1rem; */
+    background-color: black;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: white;
+    font-weight: bolder;
+    
+}
+
+#number-entries{
+    height: 100%;
+    width: 20px;
+    background-color: white;
+    color: black;
+    font-weight: bolder;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 5px;
+    font-size: .6rem;
+    margin-left: .2rem;
+}
+.main-container .site-heading .visualise{
+    width: 25%;
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-evenly;
+   align-items: center;
+
+}
+
+
+
+.main-container .site-heading .visualise button{
+    width: 80%;
+    height: 80%;
+    background-color: transparent;
+    border-radius: 5px;
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+    align-items: center;
+    /* font-size: .5rem; */
+    box-shadow: 2px 2px black;
+    font-weight: bolder;
+    cursor: pointer;
+
+}
+
+.visualise button *{
+    font-size: .7rem;
+}
+
+.main-container .site-heading .visualise button:hover{
+    color: rgb(40, 206, 40);
+    box-shadow: 2px 2px rgb(40, 206, 40);
+
+    /* animation: vibrate 0.2s 5 linear; */
+
+}
+
+ }
