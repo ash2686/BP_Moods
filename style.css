@@ -916,7 +916,8 @@ hr{
     }
 
     #calender{
-        height: 8rem;
+        width: 300%;
+        height: 12rem;
     }
 
    #calender .calender-head{
@@ -1142,13 +1143,13 @@ hr{
 
 #charts #close-chart{
     position: absolute;
-    top: 1%;
-    right: 1%;
+    top: 3%;
+    right: 3%;
     cursor: pointer;
     font-size: .8rem;
     font-weight: bolder;
     /* border: 1px solid black; */
-    padding: .2rem .4rem;
+    padding: .4rem;
     border-radius: 5px;
     background-color: green;
     /* z-index: 500 !important; */
