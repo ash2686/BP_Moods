@@ -169,6 +169,7 @@ let closeChart = document.getElementById("close-chart");
 visuals.onclick = () => {
 
   const isMobile = window.matchMedia("(max-width: 768px)").matches;
+  // console.log(isMobile);
   if(isMobile){
     charts.style.display = "flex";
   }else{
@@ -177,7 +178,7 @@ visuals.onclick = () => {
 };
 
 closeChart.onclick = () => {
-    console.log("Charts trying to close!");
+    // console.log("Charts trying to close!");
     if(isMobile){
     charts.style.display = "none";
   }else{
@@ -205,7 +206,7 @@ formBlocks.forEach((block) => {
 
       label.textContent = `Hours slept last night - ${rangeInput.value}`;
     });
-  }
+}
 
   // RADIO INPUTS
   let radioInputs = block.querySelectorAll('input[type="radio"]');
@@ -1391,28 +1392,28 @@ async function moodCharts() {
                 return [
                   {
                     text: "None",
-                    fillStyle: "rgba(0, 128, 0,.5)",
+                    fillStyle: "rgba(0, 128, 0,1)",
                     strokeStyle: "black",
                     lineWidth: 1,
                   },
 
                   {
                     text: "Mild",
-                    fillStyle: "rgba(255, 255, 0,.5)",
+                    fillStyle: "rgba(255, 255, 0,1)",
                     strokeStyle: "black",
                     lineWidth: 1,
                   },
 
                   {
                     text: "Moderate",
-                    fillStyle: "rgba(255, 165, 0,.5)",
+                    fillStyle: "rgba(255, 165, 0,1)",
                     strokeStyle: "black",
                     lineWidth: 1,
                   },
 
                   {
                     text: "Severe",
-                    fillStyle: "rgba(255, 0, 0,.5)",
+                    fillStyle: "rgba(255, 0, 0,1)",
                     strokeStyle: "black",
                     lineWidth: 1,
                   },
