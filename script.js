@@ -167,11 +167,22 @@ let charts = document.getElementById("charts");
 let closeChart = document.getElementById("close-chart");
 
 visuals.onclick = () => {
+
+  const isMobile = window.matchMedia("(max-width: 768px)").matches;
+  if(isMobile){
+    charts.style.display = "flex";
+  }else{
   charts.style.display = "grid";
+  }
 };
 
 closeChart.onclick = () => {
+    console.log("Charts trying to close!");
+    if(isMobile){
+    charts.style.display = "none";
+  }else{
   charts.style.display = "none";
+  }
 };
 
 formBlocks.forEach((block) => {
