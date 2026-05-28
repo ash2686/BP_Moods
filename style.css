@@ -909,16 +909,14 @@ hr{
 
 @media only screen and (max-width: 768px){
 
-    .main-container .site-heading .date-time{
-        background-color: yellow;
-    }
+   
     .main-container .site-heading .date-time .dt-container *{
-            font-size: .5rem;
+            font-size: .4rem;
             /* color: red; */
     }
 
     #calender{
-        height: 10rem;
+        height: 8rem;
     }
 
    #calender .calender-head{
@@ -972,7 +970,7 @@ hr{
 }
 
 .heading-text *{
-    font-size: .6rem;
+    font-size: .5rem;
     text-align: center;
 }
 
@@ -982,17 +980,17 @@ hr{
     /* padding: .2rem 1rem; */
     background-color: black;
     border-radius: 5px;
-    display: flex;
+    display: inline-flex;
     justify-content: space-around;
     align-items: center;
     color: white;
-    font-weight: bolder;
+    font-weight: bolder;    
     
 }
 
 #number-entries{
     height: 100%;
-    width: 20px;
+    width: 15px;
     background-color: white;
     color: black;
     font-weight: bolder;
@@ -1029,11 +1027,16 @@ hr{
     box-shadow: 2px 2px black;
     font-weight: bolder;
     cursor: pointer;
+    padding: 0 .5rem;
 
 }
 
 .visualise button *{
-    font-size: .7rem;
+    font-size: .8rem;
+}
+
+.visualise button img{
+    display: none;
 }
 
 .main-container .site-heading .visualise button:hover{
@@ -1042,6 +1045,59 @@ hr{
 
     /* animation: vibrate 0.2s 5 linear; */
 
+}
+
+#mood-questions *{
+    font-size: .4rem;
+}
+
+
+.main-container .submit-block #submit-info{
+    /* background-color: red; */
+    width: 70%;
+}
+
+.main-container .submit-block #missed-day-button{
+    width: 20%;
+}
+
+#missed-day-block{
+ position: fixed;
+    top:50%;
+    left:50%;
+    width: 90vw;
+    height: 90vh;
+    transform: translate(-50%,-50%);
+    background-color: white;
+    
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    display: none;
+}
+
+
+#missed-day-block *{
+    font-size: .7rem;
+}
+
+#missed-day-block label{
+    /* color: red; */
+    font-size: .7rem;
+}
+
+#missed-day-block .missed-form-block label{
+    /* color: green; */
+    font-size: .7rem;
+}
+
+#missed-day-block .missed-date *{
+    font-size: .5rem !important;
+    /* color: red; */
 }
 
  }
