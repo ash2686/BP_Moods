@@ -72,6 +72,10 @@ let nextMonthButton = document.querySelector("#next-month-button");
 let calenderMonthName = document.querySelector("#calender-month");
 let calenderBody = document.querySelector(".calender-body");
 
+let nextMonth = document.getElementById("next-month");
+let prevMonth = document.getElementById("prev-month");
+let monthLabel = document.getElementById("month-label");
+
 
 let calenderDate = new Date();
 
@@ -80,6 +84,16 @@ const allMonths = [
   "July", "August", "September", "October", "November", "December"
 ];
 
+const monthsShort = [
+  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+];
+
+let currentMonth = calenderDate.getMonth();
+
+monthLabel.textContent = allMonths[currentMonth];
+
+console.log(monthsShort[currentMonth]);
 async function renderCalendar() {
 
     const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -336,6 +350,21 @@ document.addEventListener("change", (e) => {
 
 // ************************* NEW MEDICATION FORM HANDLER *************************************
 
+function validateNewMed(){
+   let newMedName = document.getElementById("mName");
+   let newMedDose = document.getElementById("mDose");
+   let newMedUnit = document.getElementById("mUnit");
+
+   let newMedFrequency = document.querySelector('input[name="frequency"]:checked');
+   let newMedTime = document.querySelector('input[name="time"]:checked')
+
+   if(!newMedName.value.trim() || !newMedDose.value.trim() || !newMedUnit.value.trim() || !newMedFrequency || !newMedTime){
+    return false;
+   }
+
+   return true;
+}
+
 newMed.addEventListener("submit", async function (e) {
   e.preventDefault();
 
@@ -357,7 +386,10 @@ newMed.addEventListener("submit", async function (e) {
   //   formData.forEach((value, key) => {
   //     data[key] = value;
   //   });
-
+    if(!validateNewMed()){
+      alert("Complete all the fields of the Form before submitting!");
+      return;
+    }
   const medication = {
     name: document.getElementById("mName").value.trim(),
 
@@ -794,6 +826,83 @@ function clearForm(){
 
 // *********************************************** CHARTS LOGIC *********************************************************
 
+// ******************************************* MONTH NAVIGATION FOR CHARTS **********************************************
+let selectedDate = new Date();
+
+// const allMonths = [
+//   "January", "February", "March", "April", "May", "June",
+//   "July", "August", "September", "October", "November", "December"
+// ];
+
+// const monthsShort = [
+//   "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+//   "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+// ];
+// currentMonth = selectedDate.getMonth();
+
+monthLabel.textContent = allMonths[currentMonth];
+
+function getMonthYear() {
+  return {
+    month: selectedDate.getMonth() + 1,
+    year: selectedDate.getFullYear(),
+  };
+}
+
+
+document.getElementById("prev-month").onclick = () => {
+  
+  selectedDate.setMonth(selectedDate.getMonth() - 1);
+  currentMonth = selectedDate.getMonth();
+  monthLabel.textContent = allMonths[currentMonth];
+  medicationHeatmap();
+  createSleepChart();
+  moodCharts();
+};
+
+document.getElementById("next-month").onclick = () => {
+  
+  selectedDate.setMonth(selectedDate.getMonth() + 1);
+  currentMonth = selectedDate.getMonth();
+  monthLabel.textContent = allMonths[currentMonth];
+  medicationHeatmap();
+  createSleepChart();
+  moodCharts();
+};
+
+
+
+// const today = new Date();
+
+// document.getElementById("next-month").onclick = () => {
+
+
+//   const testDate = new Date(selectedDate);
+//   testDate.setMonth(testDate.getMonth() + 1);
+
+//   if (
+//     testDate.getFullYear() > today.getFullYear() ||
+//     (
+//       testDate.getFullYear() === today.getFullYear() &&
+//       testDate.getMonth() > today.getMonth()
+//     )
+//   ) {
+//     return;
+//   }
+
+//   selectedDate = testDate;
+//   medicationHeatmap();
+//   createSleepChart();
+//   moodCharts();
+// };
+
+
+
+
+
+
+// ************************************************ SLEEP CHART **********************************************************
+
 function nod() {
   const currentDate = new Date();
 
@@ -806,6 +915,8 @@ function nod() {
   return { month, daysInMonth };
 }
 
+
+
 let destroyChart;
 
 async function createSleepChart() {
@@ -813,12 +924,26 @@ async function createSleepChart() {
   const sleepHours = [];
     let sleepMap = [];
 
+const year = selectedDate.getFullYear();
+const month = selectedDate.getMonth();
 
-  let currentDM = nod();
+const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+const startDate =
+  `${year}-${String(month + 1).padStart(2, "0")}-01`;
+
+const endDate =
+  `${year}-${String(month + 1).padStart(2, "0")}-${String(daysInMonth).padStart(2, "0")}`;
+
+  // const { data, error } = await supabaseClient
+  //   .from("daily_entries")
+  //   .select("bp_sleep, entry_date");
 
   const { data, error } = await supabaseClient
-    .from("daily_entries")
-    .select("bp_sleep, entry_date");
+  .from("daily_entries")
+  .select("bp_sleep, entry_date")
+  .gte("entry_date", startDate)
+  .lte("entry_date", endDate);
 
   if (error) {
     console.log(error);
@@ -836,12 +961,12 @@ async function createSleepChart() {
 
   // getSleepValues();
 
-   for (let day = 1; day <= currentDM.daysInMonth; day++) {
+   for (let day = 1; day <= daysInMonth; day++) {
     let formattedDay = String(day).padStart(2, "0");
 
-    let formattedMonth = String(currentDM.month).padStart(2, "0");
+    let formattedMonth = String(month+1).padStart(2, "0");
 
-    let fullDate = `2026-${formattedMonth}-${formattedDay}`;
+    let fullDate = `${year}-${formattedMonth}-${formattedDay}`;
 
     labels.push(day);
 
@@ -1038,19 +1163,32 @@ function buildMedicationScatter(data) {
 
 let desMedicationChart;
 
+
 async function medicationHeatmap() {
 
 let currentMonth = nod();
 const heatmapData = {};
 
+const year = selectedDate.getFullYear();
+const month = selectedDate.getMonth();
+
+const startDate =
+  `${year}-${String(month + 1).padStart(2, "0")}-01`;
+
+const endDate =
+  `${year}-${String(month + 1).padStart(2, "0")}-${String(
+    new Date(year, month + 1, 0).getDate()
+  ).padStart(2, "0")}`;
+
+
 // const { data, error } = await supabaseClient
 //   .from("daily_medications")
 //   .select(`
 //     taken,
-//     medications (
+//     medications!daily_medications_medication_id_fkey (
 //       name
 //     ),
-//     daily_entries (
+//     daily_entries!daily_medications_daily_entry_id_fkey (
 //       entry_date
 //     )
 //   `);
@@ -1065,7 +1203,9 @@ const { data, error } = await supabaseClient
     daily_entries!daily_medications_daily_entry_id_fkey (
       entry_date
     )
-  `);
+  `)
+  .gte("daily_entries.entry_date", startDate)
+  .lte("daily_entries.entry_date", endDate);
 
 
   if (error) {
@@ -1082,6 +1222,7 @@ if (!data) {
 // console.log("Error:", error);
 
   data.forEach((row) => {
+    if (!row.daily_entries) return;
   const rawDate = row.daily_entries.entry_date;
 
   // convert YYYY-MM-DD → DD/MM/YYYY
@@ -1110,7 +1251,11 @@ if (!data) {
 
 
 
-
+const daysInMonth = new Date(
+  year,
+  month + 1,
+  0
+).getDate();
 
   const canvas = document.getElementById("medication-chart");
 
@@ -1198,7 +1343,7 @@ if (!data) {
       scales: {
         x: {
           min: 1,
-          max: currentMonth.daysInMonth,
+          max: daysInMonth,
 
           ticks: {
             stepSize: 1,
@@ -1261,7 +1406,24 @@ async function moodCharts() {
   // console.log("Dummy Data");
   // console.log(dummyData);
 
-  let {data,error} = await supabaseClient.from("daily_entries").select("*");
+  // let {data,error} = await supabaseClient.from("daily_entries").select("*");
+
+  const year = selectedDate.getFullYear();
+const month = selectedDate.getMonth();
+
+const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+const startDate =
+  `${year}-${String(month + 1).padStart(2, "0")}-01`;
+
+const endDate =
+  `${year}-${String(month + 1).padStart(2, "0")}-${String(daysInMonth).padStart(2, "0")}`;
+
+  let { data, error } = await supabaseClient
+  .from("daily_entries")
+  .select("*")
+  .gte("entry_date", startDate)
+  .lte("entry_date", endDate);
 
   // console.log("Data in the moods table is");
   // console.log(data);
@@ -1280,21 +1442,24 @@ async function moodCharts() {
   const anxietyValues = [];
   const psychoticValues = [];
 
-  const current = new Date();
-  const month = String(current.getMonth() + 1).padStart(2, "0");
-  const year = current.getFullYear();
+  // const current = new Date();
+  // const month = String(current.getMonth() + 1).padStart(2, "0");
+  // const year = current.getFullYear();
 
-  const daysInMonth = new Date(year, current.getMonth() + 1, 0).getDate();
+  // const daysInMonth = new Date(year, current.getMonth() + 1, 0).getDate();
 
   const normalizeDate = (date) => {
   return new Date(date).toISOString().split("T")[0];
 };
 
 
+
+
   let moodsMap = new Map();
   data.forEach((entry) => {
   // moodsMap.set(entry.entry_date, entry);
-  moodsMap.set(normalizeDate(entry.entry_date), entry);
+  // moodsMap.set(normalizeDate(entry.entry_date), entry);
+  moodsMap.set(entry.entry_date, entry);
 });
 
 // console.log("Mood Map - ",moodsMap);
@@ -1303,7 +1468,7 @@ async function moodCharts() {
   // for(let day = 1; day <= daysInMonth; day++){
   for (let day = 1; day <= daysInMonth; day++) {
     let formattedDay = String(day).padStart(2, "0");
-    let formattedMonth = String(month).padStart(2,"0");
+    let formattedMonth = String(month+1).padStart(2,"0");
     let fullDate = `${year}-${formattedMonth}-${formattedDay}`;
 
 

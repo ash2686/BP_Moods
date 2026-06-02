@@ -53,6 +53,13 @@
             <button id="visuals"><p>Visualise</p> <img width="100" height="100" src="https://img.icons8.com/bubbles/100/combo-chart.png" alt="combo-chart"/></button>
             <div id="charts">
                 <i id="close-chart"  class="fa-solid fa-xmark"></i>
+
+                <div class="month-navigation">
+                <button id="prev-month">Previous</button>
+                    <span id="month-label"></span>
+                <button id="next-month">Next</button>
+                </div>
+
                 <div class="chart-block sleep"><canvas id="sleep-chart"></canvas></div>
                 <div class="chart-block medication"><canvas id="medication-chart"></canvas></div>              
                 <div class="chart-block"><canvas id="depression-chart"></canvas></div>
@@ -305,7 +312,7 @@
 
                 <div class="medication-detail-block">
                     <label for="mDose">Medication Dose</label>
-                    <input type="text" id="mDose" name="Dose" placeholder="Medication Dose">
+                    <input type="number" id="mDose" name="Dose" placeholder="Medication Dose">
                 </div>
 
                 <div class="medication-detail-block">
